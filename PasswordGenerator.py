@@ -15,4 +15,3 @@ else:
         password += random.choice(passw)
 
     print(password)
-    
