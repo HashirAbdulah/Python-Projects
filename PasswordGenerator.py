@@ -5,11 +5,14 @@ length = int(input("Enter Password Length: "))
 letters = string.ascii_letters
 numbers = string.digits
 punctuations = string.punctuation
+passw = letters + numbers + punctuations
+password = ""
 
-plist=[]
-plist.extend(letters)
-plist.extend(numbers)
-plist.extend(punctuations)
+if length < 8 :
+    print("Password length should be at least 8 characters")
+else:
+    for i in range(length):
+        password += random.choice(passw)
 
-random.shuffle(plist)
-print(''.join(plist[0:length]))
+    print(password)
+    
