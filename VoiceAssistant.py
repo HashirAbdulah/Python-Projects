@@ -48,10 +48,8 @@ if __name__ == '__main__':
         # TexttoSpeech("I can also play music from your device.")
         # TexttoSpeech("I can also translate your text into English.")
         # TexttoSpeech("I can also send you an email.")
-        # TexttoSpeech("I can also check weather for you.")
         # TexttoSpeech("I can also tell you about the time zone.")
         # TexttoSpeech("I can also tell you about the sunrise and sunset.")
-        # TexttoSpeech("I can also tell you about the current weather.")
     elif "can you do" in extraData:
          canDo = f"I am here to help you with anything that i can trained for. What can I do for you? \n I can search for you online, \n I can also tell you a joke. " 
          TexttoSpeech(canDo)
