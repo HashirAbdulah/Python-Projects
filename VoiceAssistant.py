@@ -61,62 +61,73 @@ def open_spotify():
 
 if __name__ == '__main__':
     counter = 0
-    while True:
-        extraData = SpeechtoText()
+while True:
+    extraData = SpeechtoText()
 
-        if extraData is None:
-            counter += 1
-            if counter >= 1:
-                speak("I didn't understand twice. Exiting the program.")
-                sys.exit()
-            else:
-                speak("I didn't understand that. Please try again.")
-                continue
+    if extraData is None:
+        counter += 1
+        if counter >= 2: 
+            speak("I didn't understand twice. Exiting the program.")
+            sys.exit()
         else:
-            counter = 0
+            speak("I didn't understand that. Please try again.")
+            continue
+    else:
+        counter = 0 
 
         if extraData == "hello" or extraData == "hi":
             speak("Hello! How can I help you today?")
+
         elif "your name" in extraData:
             name = "My name is Semma. How can I help you today?"
             speak(name)
+        
         elif "can you do" in extraData:
             canDo = "I am here to help you with anything I am trained for. What can I do for you? \nI can search for you online, \nI can also tell you a joke."
             speak(canDo)
+        
+        elif "your age" in extraData:
+            age = "I was born when you opened me."
+            speak(age)
+
         elif 'open browser' in extraData:
             speak('Opening browser for you.')
             webbrowser.open('https://www.google.com/search?q=')
             break
+        
         elif 'open youtube' in extraData:
             speak('Opening YouTube for you.')
             webbrowser.open("https://www.youtube.com/")
             break
+        
         elif 'google' in extraData:
             speak('Opening Google for you.')
             webbrowser.open("https://www.google.com/")
             break
-        elif "your age" in extraData:
-            age = "I was born when you opened me."
-            speak(age)
+        
         elif "time" in extraData:
             now = datetime.datetime.now()
             date_time = now.strftime("Today is %A, %B %d, %Y. The current time is %I:%M %p.")
             print(date_time)
             speak(date_time)
+        
         elif "search" in extraData:
             speak('Tell me what you want to search.')
             search = SpeechtoText()
             if search:
                 webbrowser.open(f'https://www.google.com/search?q={search}')
                 break
+        
         elif "spotify" in extraData:
             speak('Opening Spotify for you.')
             open_spotify()
             break
+        
         elif "open ai" in extraData:
             speak('Opening ChatGPT for you.')
             webbrowser.open("https://chatgpt.com/")
             break
+        
         elif "joke" in extraData:
             joke = pyjokes.get_joke('en', 'neutral')
             print(joke)
