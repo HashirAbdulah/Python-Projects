@@ -6,28 +6,10 @@ import pyjokes
 import os
 import sys
 
-def list_voices():
-    """List available voices."""
-    engine = pyttsx3.init()
-    voices = engine.getProperty("voices")
-    for index, voice in enumerate(voices):
-        print(f"Voice {index}: ID={voice.id}, Name={voice.name}, Lang={voice.languages}")
-
-def select_voice():
-    """Select a voice from the available options."""
-    engine = pyttsx3.init()
-    voices = engine.getProperty("voices")
-    for index, voice in enumerate(voices):
-        print(f"{index}: {voice.name} ({voice.id})")
-
-    choice = int(input("Select a voice by number: "))
-    if 0 <= choice < len(voices):
-        engine.setProperty("voice", voices[choice].id)
-        return voices[choice].name
-    else:
-        print("Invalid choice. Using default voice.")
-        return engine.getProperty("voices")[0].name
-
+engine = pyttsx3.init()
+voices = engine.getProperty("voices")
+engine.setProperty("voice", voices[1].id)
+engine.setProperty("rate", 150)
 
 def SpeechtoText():
     recognizer = sp.Recognizer()
@@ -45,10 +27,6 @@ def SpeechtoText():
             return None
 
 def speak(text):
-    engine = pyttsx3.init()
-    voices = engine.getProperty("voices")
-    engine.setProperty("voice", voices[1].id)
-    engine.setProperty("rate", 150)
     engine.say(text)
     engine.runAndWait()
 
@@ -67,7 +45,8 @@ while True:
     if extraData is None:
         counter += 1
         if counter >= 2: 
-            speak("I didn't understand twice. Exiting the program.")
+            print("I didn't understand. Exiting the program.")
+            speak("I didn't understand. Exiting the program.")
             sys.exit()
         else:
             speak("I didn't understand that. Please try again.")
@@ -133,5 +112,18 @@ while True:
             print(joke)
             speak(joke)
             break
+
+        elif "play song" in extraData:
+            speak('Opening Spotify for you.')
+            open_spotify()
+            song_name = SpeechtoText()
+            if song_name:
+                webbrowser.open(f'https://www.youtube.com/results?search_query={song_name}')
+                break
+
+        elif "exit" in extraData or "stop" in extraData:  
+                speak("Goodbye! Have a great day!")
+                break
+
         else:
             speak("I didn't understand that command. Please try again.")
